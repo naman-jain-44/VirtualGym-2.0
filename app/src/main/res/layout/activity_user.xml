@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserActivity"
+    android:background="#0E0202">
+
+
+    <TextView
+        android:id="@+id/scode_profile"
+        android:layout_width="293dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="649dp"
+        android:text="hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieanimation"
+        android:layout_width="359dp"
+        android:layout_height="346dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="271dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/pushuplottie" />
+
+    <Button
+        android:id="@+id/opentutorial"
+        android:layout_width="218dp"
+        android:layout_height="105dp"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="53dp"
+        android:text="TUTORIAL"
+        android:background="#0E0202"
+        android:textSize="25sp" />
+
+
+</RelativeLayout>

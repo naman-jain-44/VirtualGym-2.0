@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LearnableExerciseList"
+    android:background="#0E0202"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_width="253dp"
+            android:layout_height="wrap_content"
+            android:hint="Search Your Exercise"
+            android:layout_weight="2"/>
+
+        <Button
+            android:id="@+id/triggered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showlist"
+            android:text="GO" />
+    </LinearLayout>
+
+
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3dp"
+        tools:listitem="@layout/list_item" />
+
+
+</LinearLayout>
