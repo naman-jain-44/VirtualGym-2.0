@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.google.mlkit.vision.demo.java.ChooserActivity;
 
 public class DateClass extends AppCompatActivity {
@@ -29,8 +31,21 @@ public class DateClass extends AppCompatActivity {
                 int year = datePicker.getYear();
                 int month = datePicker.getMonth() + 1; // Month is 0-based
                 int day = datePicker.getDayOfMonth();
-                String selectedDate = year + "-" + month + "-" + day;
-                Intent i = new Intent(DateClass.this, BarChart.class);
+                String selectedDate =""+ year;
+                if(month<10){
+                    selectedDate+="0"+month;
+                }else{
+                    selectedDate+=month;
+                }
+                if(day<10){
+                    selectedDate+="0"+day;
+                }else{
+                    selectedDate+=day;
+                }
+
+                //String selectedDate = year +""+ month +""+ day;
+                Log.d("DateClass",selectedDate);
+                Intent i = new Intent(DateClass.this, ChartBar.class);
                 i.putExtra("Date",selectedDate);
                 startActivity(i);
             }

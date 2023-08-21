@@ -25,12 +25,25 @@ import static com.google.mlkit.vision.demo.java.LivePreviewActivity.angles;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 //import androidx.annotation.NonNull;
 import org.jetbrains.annotations.NotNull;
+
+import com.airbnb.lottie.L;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.odml.image.MlImage;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.demo.GraphicOverlay;
+import com.google.mlkit.vision.demo.MainActivity;
 import com.google.mlkit.vision.demo.java.VisionProcessorBase;
 import com.google.mlkit.vision.demo.java.posedetector.classification.PoseClassifierProcessor;
 import com.google.mlkit.vision.pose.Pose;
@@ -39,8 +52,13 @@ import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseDetectorOptionsBase;
 import com.google.mlkit.vision.pose.PoseLandmark;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -48,8 +66,10 @@ import java.util.concurrent.Executors;
 public class PoseDetectorProcessor
     extends VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification> {
   private static final String TAG = "PoseDetectorProcessor";
-
-  private final PoseDetector detector;
+//  FirebaseFirestore db = FirebaseFirestore.getInstance();
+//  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//  CollectionReference user_date_reference = db.collection("users").document(user.getUid()).collection("dates");
+ private final PoseDetector detector;
 
   private final boolean showInFrameLikelihood;
   private final boolean visualizeZ;
@@ -58,6 +78,19 @@ public class PoseDetectorProcessor
   private final boolean isStreamMode;
   private final Context context;
   private final Executor classificationExecutor;
+  FirebaseFirestore db = FirebaseFirestore.getInstance();
+  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+  //  CollectionReference user_date_reference = db.collection("users").document(user.getUid()).collection("dates");
+  // Get the current date
+  Date currentDate = new Date();
+
+  // Format the date as a string
+  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+  // Log.d(TAG,"NO EXERCISES PRESENT");
+  int dateInt = Integer.parseInt(dateFormat.format(currentDate));
+      //  Log.d(TAG,""+dateInt+"");
+  DocumentReference d= db.collection("users").document(user.getUid()).collection("dates").document(String.valueOf(dateInt));
+     //   Log.d(TAG,""+user.getUid()+"");
 
   private PoseClassifierProcessor poseClassifierProcessor;
   /** Internal class to hold Pose and classification results. */
@@ -303,30 +336,48 @@ public class PoseDetectorProcessor
     save_in_database.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
+
+
         switch (jj){
             case "SitUps":
-              //retrieve the data
-
+              //retrieve first if present on that day
+              save_data_database_required_exercise(jj,situpscounter);
+              situpscounter=0;
+              nnn.setText(""+situpscounter+"");
               //sum it up with new of that date and than set that data into that location only
+
 
             break;
 
             case "BicepsCurl":
+              save_data_database_required_exercise(jj,bicepscounter);
+              bicepscounter=0;
+              nnn.setText(""+bicepscounter+"");
 
 
             break;
 
             case "Squats":
+              save_data_database_required_exercise(jj,squatcounter);
+              squatcounter=0;
+              nnn.setText(""+squatcounter+"");
 
 
             break;
 
             case "Pushups" :
+              save_data_database_required_exercise(jj,pushupcounter);
+              pushupcounter=0;
+              nnn.setText(""+pushupcounter+"");
 
 
             break;
 
             case "ShoulderPress":
+              save_data_database_required_exercise(jj,shouldercounter);
+              shouldercounter=0;
+              nnn.setText(""+shouldercounter+"");
 
 
             break;
@@ -353,6 +404,42 @@ public class PoseDetectorProcessor
             visualizeZ,
             rescaleZForVisualization,
             poseWithClassification.classificationResult));
+  }
+
+  protected  void save_data_database_required_exercise(String h ,int new_number){
+
+    d.get()
+            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+              @Override
+              public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                  int currentPushups = 0;
+                  if (documentSnapshot.contains(h)){
+                    currentPushups = documentSnapshot.getLong(h).intValue();
+                  }
+
+                  int newPushups = currentPushups + new_number;
+                  Map<String, Object> updates = new HashMap<>();
+                  updates.put(h, newPushups);
+                  d.set(updates, SetOptions.merge());
+
+
+
+                } else {
+                  Map<String, Object> updates = new HashMap<>();
+                  updates.put(h, 0);
+                  d.set(updates, SetOptions.merge());
+
+                }
+              }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(Exception e) {
+
+              }
+            });
+
   }
 
   @Override
