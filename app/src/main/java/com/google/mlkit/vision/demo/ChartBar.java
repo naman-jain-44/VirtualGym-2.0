@@ -101,7 +101,7 @@ public class ChartBar extends AppCompatActivity {
 
         barChart.setData(barData);
         barChart.getDescription().setEnabled(false);
-        barChart.animateY(2000);
+        barChart.animateY(1000);
     }
     private int getExerciseColor(String exerciseName) {
         if (exerciseName.equals("Squats")) {
