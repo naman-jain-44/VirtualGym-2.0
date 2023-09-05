@@ -18,6 +18,16 @@
 [![VIRTUAL GYM - DEMO VIDEO ](https://i9.ytimg.com/vi_webp/UvyiSEFqmhk/mqdefault.webp?v=641de812&sqp=CJyS_6AG&rs=AOn4CLDbN897QTZResF7Cf3XiLTCI_X6Ew)](https://youtu.be/UvyiSEFqmhk)
 
 
+
+![VIRTUAL GYM](https://github.com/naman-jain-44/VirtualGym-2.0/assets/100465390/2c8726d2-d8b5-471c-bef3-1ffe1fcc4806)
+
+![VIRTUAL GYM (1)](https://github.com/naman-jain-44/VirtualGym-2.0/assets/100465390/29e338c5-9d36-4a39-a92c-05f603987dbf)
+
+![VIRTUAL GYM (2)](https://github.com/naman-jain-44/VirtualGym-2.0/assets/100465390/f6044246-34cc-40bb-8d41-8358fc11305d)
+
+![VIRTUAL GYM (3)](https://github.com/naman-jain-44/VirtualGym-2.0/assets/100465390/1c0533ab-7ea3-4ca7-887a-8ace0b591314)
+
+
 # RUN THE APP 
 
 
